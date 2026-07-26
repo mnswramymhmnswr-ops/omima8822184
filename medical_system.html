@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام شجرة العائلة</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        nav { background: #333; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+        nav button { background: none; border: none; color: white; padding: 10px 15px; cursor: pointer; font-size: 16px; font-family: Tahoma, sans-serif; }
+        nav button:hover, nav button.active-btn { background: #555; border-radius: 4px; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        input, select { width: 100%; padding: 8px; margin: 10px 0; box-sizing: border-box; }
+        .action-btn { background: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 4px; }
+        .action-btn:hover { background: #45a049; }
+        ul { padding-right: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>مشروع شجرة العائلة</h2>
+    
+    <!-- شريط التنقل بين الشاشات الخمس -->
+    <nav>
+        <button onclick="showScreen('home')" id="btn-home" class="active-btn">الرئيسية</button>
+        <button onclick="showScreen('add')" id="btn-add">إضافة فرد</button>
+        <button onclick="showScreen('view')" id="btn-view">عرض الشجرة</button>
+        <button onclick="showScreen('search')" id="btn-search">بحث عن شخص</button>
+        <button onclick="showScreen('details')" id="btn-details">التفاصيل والتعديل</button>
+    </nav>
+
+    <!-- الشاشة الأولى: الرئيسية -->
+    <div id="home" class="screen active">
+        <h3>مرحباً بكِ في واجهة شجرة العائلة</h3>
+        <p>هذا النظام يضم الشاشات الخمس مترابطة وتعمل مباشرة على هاتفك بكل سهولة.</p>
+    </div>
+
+    <!-- الشاشة الثانية: إضافة فرد جديد -->
+    <div id="add" class="screen">
+        <h3>شاشة إضافة فرد جديد</h3>
+        <form onsubmit="event.preventDefault(); alert('تمت الإضافة بنجاح!');">
+            <label>اسم الفرد:</label>
+            <input type="text" id="memberName" required placeholder="اكتبي اسم الشخص...">
+            <label>صلة القرابة / الأب:</label>
+            <input type="text" id="memberRelation" placeholder="اكتبي صلة القرابة...">
+            <button type="submit" class="action-btn">حفظ البيانات</button>
+        </form>
+    </div>
+
+    <!-- الشاشة الثالثة: عرض الشجرة -->
+    <div id="view" class="screen">
+        <h3>شاشة عرض أفراد العائلة</h3>
+        <p>قائمة الأفراد المسجلين:</p>
+        <ul id="familyList">
+            <li>محمد (الجد الأكبر)</li>
+            <li>أحمد (الابن)</li>
+            <li>فاطمة (الابنة)</li>
+        </ul>
+    </div>
+
+    <!-- الشاشة الرابعة: بحث عن شخص -->
+    <div id="search" class="screen">
+        <h3>شاشة البحث</h3>
+        <input type="text" id="searchQuery" placeholder="اكتبي اسم الشخص للبحث عنه...">
+        <button onclick="alert('جاري البحث...')" class="action-btn">بحث</button>
+    </div>
+
+    <!-- الشاشة الخامسة: التفاصيل والتعديل -->
+    <div id="details" class="screen">
+        <h3>شاشة التفاصيل والتعديل</h3>
+        <p>هنا تظهر تفاصيل الشخص المختار وإمكانية التعديل على بياناته.</p>
+        <input type="text" value="محمد (الجد الأكبر)">
+        <button onclick="alert('تم تحديث البيانات!')" class="action-btn">تعديل البيانات</button>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        // إخفاء كل الشاشات
+        let screens = document.querySelectorAll('.screen');
+        screens.forEach(function(screen) {
+            screen.classList.remove('active');
+        });
+
+        // إزالة التحديد عن كل الأزرار
+        let buttons = document.querySelectorAll('nav button');
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active-btn');
+        });
+
+        // إظهار الشاشة المطلوبة وتحديد الزر الخاص بها
+        document.getElementById(screenId).classList.add('active');
+        document.getElementById('btn-' + screenId).classList.add('active-btn');
+    }
+</script>
+
+</body>
+  </html>
